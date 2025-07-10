@@ -22,3 +22,19 @@ class MultipleAddressBookSystem:
             for name, book in self.books.items():
                 print(f"\n===== {name.upper()} Address Book =====")
                 book.display_all_contacts()
+
+    def search_person_by_city_or_state(self, location_type, value):
+        found = False
+        print(f"\nSearch results for {location_type.title()} '{value}':")
+        for name, book in self.books.items():
+            for contact in book.contacts:
+                if location_type == "city" and contact.city.lower() == value.lower():
+                    print(f"\n[From {name} Address Book]")
+                    print(contact.display())
+                    found = True
+                elif location_type == "state" and contact.state.lower() == value.lower():
+                    print(f"\n[From {name} Address Book]")
+                    print(contact.display())
+                    found = True
+        if not found:
+            print("No contacts found.")
