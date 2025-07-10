@@ -42,10 +42,17 @@ while True:
 # UC6 - Display All Address Books and Contacts (optional, uncomment to use)
 # system.display_all_books()
 
-# UC8 - Search Person by City or State
-search_type = input("\nSearch by 'city' or 'state'?: ").strip().lower()
-if search_type in ['city', 'state']:
-    search_value = input(f"Enter {search_type} name to search: ")
-    system.search_person_by_city_or_state(search_type, search_value)
+# UC8 - Search Person by City or State (optional, uncomment to use)
+# search_type = input("\nSearch by 'city' or 'state'?: ").strip().lower()
+# if search_type in ['city', 'state']:
+#     search_value = input(f"Enter {search_type} name to search: ")
+#     system.search_person_by_city_or_state(search_type, search_value)
+# else:
+#     print("Invalid search type.")
+
+# UC9 - View Persons grouped by City or State (optional, uncomment to use)
+location_type = input("\nView persons grouped by 'city' or 'state'?: ").strip().lower()
+if location_type in ['city', 'state']:
+    system.view_persons_by_location(location_type)
 else:
-    print("Invalid search type.")
+    print("Invalid location type.")

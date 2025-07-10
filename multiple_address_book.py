@@ -38,3 +38,25 @@ class MultipleAddressBookSystem:
                     found = True
         if not found:
             print("No contacts found.")
+
+    
+    def view_persons_by_location(self, location_type):
+        location_dict = {}
+
+        for book in self.books.values():
+            for contact in book.contacts:
+                key = contact.city.lower() if location_type == "city" else contact.state.lower()
+                if key not in location_dict:
+                    location_dict[key] = []
+                location_dict[key].append(contact)
+
+        if not location_dict:
+            print(f"No contacts found in any {location_type}.")
+            return
+
+        print(f"\nPeople grouped by {location_type.title()}:")
+        for location, people in location_dict.items():
+            print(f"\n{location_type.title()}: {location.title()}")
+            for contact in people:
+                print(contact.display())
+                print("-" * 30)
