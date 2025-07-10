@@ -29,3 +29,6 @@ contact2 = Contact(
 address_book = AddressBook()
 address_book.add_contact(contact1)
 address_book.add_contact(contact2)
+
+address_book.edit_contact("Anu")
+address_book.display_all_contacts() 
