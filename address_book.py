@@ -46,6 +46,7 @@ class AddressBook:
                 print(f"\nContact '{first_name}' deleted successfully!\n")
                 return
         print(f"\nContact with name '{first_name}' not found.\n")
+
     def add_multiple_contacts(self, contacts):
         for contact in contacts:
             self.add_contact(contact)
