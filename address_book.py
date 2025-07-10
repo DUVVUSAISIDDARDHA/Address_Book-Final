@@ -5,6 +5,12 @@ class AddressBook:
         self.contacts = []
 
     def add_contact(self, contact):
+        for existing in self.contacts:
+            if (existing.first_name.lower() == contact.first_name.lower() and
+                existing.last_name.lower() == contact.last_name.lower()):
+                print("\nDuplicate contact! Person already exists in this address book.\n")
+                return
+
         self.contacts.append(contact)
         print("\nContact added successfully!\n")
         print("Saved Contact:")
@@ -50,6 +56,3 @@ class AddressBook:
     def add_multiple_contacts(self, contacts):
         for contact in contacts:
             self.add_contact(contact)
-    
-
-    
