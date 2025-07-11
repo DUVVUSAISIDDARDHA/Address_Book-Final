@@ -4,6 +4,7 @@ class AddressBook:
     def __init__(self):
         self.contacts = []
 
+    # UC2: Add a new contact with duplicate check
     def add_contact(self, contact):
         for existing in self.contacts:
             if (existing.first_name.lower() == contact.first_name.lower() and
@@ -18,6 +19,7 @@ class AddressBook:
         print(contact.display())
         print("----------------------------")
 
+    
     def display_all_contacts(self):
         if not self.contacts:
             print("No contacts found.")
@@ -27,6 +29,7 @@ class AddressBook:
                 print(contact.display())
                 print("----------------------------")
 
+    
     def edit_contact(self, first_name):
         for contact in self.contacts:
             if contact.first_name.lower() == first_name.lower():
@@ -45,6 +48,7 @@ class AddressBook:
                 return
         print("Contact not found.")
 
+    
     def delete_contact(self, first_name):
         for contact in self.contacts:
             if contact.first_name.lower() == first_name.lower():
@@ -53,6 +57,21 @@ class AddressBook:
                 return
         print(f"\nContact with name '{first_name}' not found.\n")
 
+    # Optional: Add multiple contacts at once
     def add_multiple_contacts(self, contacts):
         for contact in contacts:
             self.add_contact(contact)
+
+    #  UC11: Sort contacts alphabetically by First Name + Last Name (no __str__)
+    def sort_contacts_by_name(self):
+        if not self.contacts:
+            print("No contacts to sort.")
+            return
+
+        # Sort contacts by first and then last name (both in lowercase)
+        sorted_contacts = sorted(self.contacts, key=lambda c: (c.first_name.lower(), c.last_name.lower()))
+
+        print("\nSorted Contacts by Name:")
+        for contact in sorted_contacts:
+            print(contact.display())
+            print("-" * 30)
