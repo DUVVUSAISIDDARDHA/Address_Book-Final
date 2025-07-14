@@ -69,5 +69,15 @@ if book_to_sort:
 else:
     print(f"Address Book '{sort_book_name}' not found.")
 
+#  UC12 - Sort contacts by City, State, or Zip Code
+sort_by = input("\nDo you want to sort contacts by 'city', 'state' or 'zip_code'? (or press Enter to skip): ").strip().lower()
+if sort_by in ['city', 'state', 'zip_code']:
+    sort_book = system.get_address_book(sort_book_name)
+    if sort_book:
+        sort_book.sort_contacts_by(sort_by)
+    else:
+        print(f"Address Book '{sort_book_name}' not found.")
+# else: Skipped if input is blank or invalid
+
 # Optional: Final display of all address books and contacts
 # system.display_all_books()
