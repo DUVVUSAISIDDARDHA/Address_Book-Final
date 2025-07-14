@@ -1,17 +1,16 @@
+import os
 from contact import Contact
 
 class AddressBook:
     def __init__(self):
         self.contacts = []
 
-    # UC2: Add a new contact with duplicate check
     def add_contact(self, contact):
         for existing in self.contacts:
             if (existing.first_name.lower() == contact.first_name.lower() and
                 existing.last_name.lower() == contact.last_name.lower()):
                 print("\nDuplicate contact! Person already exists in this address book.\n")
                 return
-
         self.contacts.append(contact)
         print("\nContact added successfully!\n")
         print("Saved Contact:")
@@ -58,7 +57,6 @@ class AddressBook:
         for contact in contacts:
             self.add_contact(contact)
 
-    # UC11: Sort contacts alphabetically by First Name + Last Name
     def sort_contacts_by_name(self):
         if not self.contacts:
             print("No contacts to sort.")
@@ -70,7 +68,6 @@ class AddressBook:
             print(contact.display())
             print("-" * 30)
 
-    #  UC12: Single function to sort by city, state, or zip_code
     def sort_contacts_by(self, field):
         if not self.contacts:
             print("No contacts to sort.")
@@ -90,3 +87,25 @@ class AddressBook:
         for contact in sorted_contacts:
             print(contact.display())
             print("-" * 30)
+
+    #  UC13: Save or Load contacts from file (single method)
+    def save_or_load_file(self, filename, mode):
+        if mode == "save":
+            with open(filename, "w") as file:
+                for contact in self.contacts:
+                    file.write(f"{contact.first_name},{contact.last_name},{contact.address},{contact.city},"
+                               f"{contact.state},{contact.zip_code},{contact.phone},{contact.email}\n")
+            print(f"\nAll contacts saved to file '{filename}' successfully.")
+        elif mode == "load":
+            if not os.path.exists(filename):
+                print(f"\nFile '{filename}' does not exist.")
+                return
+            with open(filename, "r") as file:
+                for line in file:
+                    data = line.strip().split(",")
+                    if len(data) == 8:
+                        contact = Contact(*data)
+                        self.add_contact(contact)
+            print(f"\nContacts loaded from file '{filename}' successfully.")
+        else:
+            print("Invalid mode! Use 'save' or 'load'.")

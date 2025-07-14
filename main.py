@@ -33,16 +33,6 @@ while True:
         if more_contacts != "y":
             break
 
-    # UC3 - Edit contact (Optional)
-    # edit_name = input("Enter First Name to Edit Contact (or press Enter to skip): ")
-    # if edit_name:
-    #     book.edit_contact(edit_name)
-
-    # UC4 - Delete contact (Optional)
-    # delete_name = input("Enter First Name to Delete Contact (or press Enter to skip): ")
-    # if delete_name:
-    #     book.delete_contact(delete_name)
-
     more_books = input("Do you want to add another address book? (y/n): ").lower()
     if more_books != "y":
         break
@@ -69,7 +59,7 @@ if book_to_sort:
 else:
     print(f"Address Book '{sort_book_name}' not found.")
 
-#  UC12 - Sort contacts by City, State, or Zip Code
+# UC12 - Sort by city/state/zip_code in selected address book
 sort_by = input("\nDo you want to sort contacts by 'city', 'state' or 'zip_code'? (or press Enter to skip): ").strip().lower()
 if sort_by in ['city', 'state', 'zip_code']:
     sort_book = system.get_address_book(sort_book_name)
@@ -77,7 +67,13 @@ if sort_by in ['city', 'state', 'zip_code']:
         sort_book.sort_contacts_by(sort_by)
     else:
         print(f"Address Book '{sort_book_name}' not found.")
-# else: Skipped if input is blank or invalid
 
-# Optional: Final display of all address books and contacts
-# system.display_all_books()
+#  UC13 - Save or Load contacts from file
+file_action = input("\nDo you want to 'save' or 'load' contacts to/from a file? (or press Enter to skip): ").strip().lower()
+if file_action in ['save', 'load']:
+    file_name = input("Enter filename (e.g., contacts.txt): ")
+    file_book = system.get_address_book(sort_book_name)
+    if file_book:
+        file_book.save_or_load_file(file_name, file_action)
+    else:
+        print(f"Address Book '{sort_book_name}' not found.")
