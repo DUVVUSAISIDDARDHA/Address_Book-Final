@@ -1,5 +1,6 @@
 import os
 import csv
+import json
 from contact import Contact
 
 class AddressBook:
@@ -120,11 +121,47 @@ class AddressBook:
                 return
             with open(filename, mode='r') as csvfile:
                 reader = csv.reader(csvfile)
-                headers = next(reader)  # skip the header row
+                headers = next(reader)
                 for row in reader:
                     if len(row) == 8:
                         contact = Contact(*row)
                         self.add_contact(contact)
             print(f"\nContacts loaded from CSV file '{filename}' successfully.")
+        else:
+            print("Invalid mode! Use 'save' or 'load'.")
+
+    def save_or_load_json(self, filename, mode):
+        if mode == "save":
+            data = []
+            for contact in self.contacts:
+                data.append({
+                    "first_name": contact.first_name,
+                    "last_name": contact.last_name,
+                    "address": contact.address,
+                    "city": contact.city,
+                    "state": contact.state,
+                    "zip_code": contact.zip_code,
+                    "phone": contact.phone,
+                    "email": contact.email
+                })
+            with open(filename, "w") as json_file:
+                json.dump(data, json_file, indent=4)
+            print(f"\nAll contacts saved to JSON file '{filename}' successfully.")
+
+        elif mode == "load":
+            try:
+                with open(filename, "r") as json_file:
+                    data = json.load(json_file)
+                    for entry in data:
+                        if all(k in entry for k in ["first_name", "last_name", "address", "city", "state", "zip_code", "phone", "email"]):
+                            contact = Contact(
+                                entry["first_name"], entry["last_name"], entry["address"],
+                                entry["city"], entry["state"], entry["zip_code"],
+                                entry["phone"], entry["email"]
+                            )
+                            self.add_contact(contact)
+                print(f"\nContacts loaded from JSON file '{filename}' successfully.")
+            except FileNotFoundError:
+                print(f"\nJSON file '{filename}' does not exist.")
         else:
             print("Invalid mode! Use 'save' or 'load'.")

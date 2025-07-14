@@ -102,5 +102,14 @@ if csv_action in ['save', 'load']:
     else:
         print("No valid address book found for CSV operation.")
 
-# Optional: Final display of all address books (UC15 if required)
+# UC15 - Save/Load from JSON file
+json_action = input("\nUC15 - Do you want to 'save' or 'load' contacts from JSON file? (or press Enter to skip): ").strip().lower()
+if json_action in ['save', 'load']:
+    json_file = input("Enter JSON filename (e.g., contacts.json): ")
+    if book_to_sort:
+        book_to_sort.save_or_load_json(json_file, json_action)
+    else:
+        print("No valid address book found for JSON operation.")
+
+# Optional: Final display of all address books
 # system.display_all_books()
